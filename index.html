@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" defer></script>
+    <title>Recipe Apps</title>
+</head>
+
+<body>
+    <div class="mobile-container">
+        <header>
+            <button id="btn-navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <input type="text">
+            <button id="btn-serch">
+                <i class="fas fa-search"></i>
+            </button>
+        </header>
+        <div class="fav-container">
+            <ul class='fav-group'>
+                <li class="fav-item">
+                    <img src="https://foodish-api.herokuapp.com/images/rice/rice33.jpg">
+                    <span>meal</span>
+                </li>
+                <li class="fav-item">
+                    <img src="https://foodish-api.herokuapp.com/images/burger/burger60.jpg">
+                    <span>meal</span>
+                </li>
+                <li class="fav-item">
+                    <img src="https://foodish-api.herokuapp.com/images/burger/burger77.jpg">
+                    <span>meal</span>
+                </li>
+                <li class="fav-item">
+                    <img src="https://foodish-api.herokuapp.com/images/burger/burger77.jpg">
+                    <span>meal</span>
+                </li>
+            </ul>
+        </div>
+        <div class="meals-container">
+            <div class="meal-item">
+                <div class="meal-header">
+                    <span class="tag">special tag</span>
+                    <img src="https://foodish-api.herokuapp.com/images/rice/rice33.jpg">
+                </div>
+                <div class="meal-body">
+                    <h4>Fired rice with shrimp</h4>
+                    <button id="btn-fav"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+            <div class="meal-item">
+                <div class="meal-header">
+                    <span class="tag">special tag</span>
+                    <img src="https://foodish-api.herokuapp.com/images/burger/burger60.jpg">
+                </div>
+                <div class="meal-body">
+                    <h4>Beef hamburger set</h4>
+                    <button id="btn-fav"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
 
+:root {
+    --favTitle: #3dd;
+    --favBG: rgba(152, 245, 245, 0.2);
+    --btnBlue: rgba(28, 129, 119, .9);
+    --btnHover: rgba(101, 219, 209, 0.993);
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -37,18 +44,18 @@ header>input{
     outline: none;
 }
 header>input:focus{
-    border: 2px solid rgba(28, 129, 119, 0.993);;
+    border: 2px solid var(--btnBlue);
 }
 header>button{
     border: none;
     font-size: 1.3rem;
     background-color: transparent;
-    color: rgba(28, 129, 119, 0.993);
+    color: var(--btnBlue);
     cursor: pointer;
     padding: 1px 5px;
 }
 header>button:hover{
-    color:rgba(101, 219, 209, 0.993);;
+    color:var(--btnHover);
 }
 .mobile-container{
     width: 400px;
@@ -62,20 +69,37 @@ header>button:hover{
 
 .fav-container{
     width: 100%;
-    background-color: rgba(152, 245, 245, 0.2);
+    background-color: var(--favBG);
     padding: 1rem 0;
     box-shadow: 0 0 2px 1px rgba(84, 179, 216, 0.5);
+}
+.fav-container>h5{
+    text-align: center;
+    color: var(--favTitle);
+    padding-bottom: .5rem;
 }
 .fav-group{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 .fav-item{
+    width: 95px;
     display:flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
     padding: 0 .5rem;
+    position: relative;
+}
+.fav-item #btn-remove{
+    position: absolute;
+    top:0;
+    right:10px;
+    color: #000;
+    opacity: 0;
+}
+.fav-item:hover #btn-remove{
+    opacity: 1;
 }
 .fav-item img{
     border: 1px solid #fff;
@@ -84,6 +108,15 @@ header>button:hover{
     width: 75px;
     height: 75px;
     object-fit: cover;
+}
+.fav-item span{
+    width: 75px;
+    text-align: center;
+    font-size: .5rem;
+    padding: .25rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .meals-container{
@@ -111,7 +144,7 @@ header>button:hover{
     border-bottom-right-radius: 3px;
     font-size:1rem;
     color: #bbb;
-    padding: .2rem 1rem;
+    padding: .2rem .5rem;
 }
 
 .meal-header img{
@@ -123,10 +156,18 @@ header>button:hover{
 .meal-body{
     display: flex;
     justify-content: space-between;
-    padding: .5rem 1rem;
+    padding: .5rem .7rem;
 }
 
-.meal-body #btn-fav{
+.meal-body h4{
+    width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .8rem;
+}
+
+.btn-base{
     border: none;
     background-color: transparent;
     color: #aaa;
@@ -136,3 +177,8 @@ header>button:hover{
 .meal-body #btn-fav.active{
     color: #f33;
 }
+
+.meal-body #btn-random:hover{
+    color:#000;
+}
+

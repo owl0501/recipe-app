@@ -40,11 +40,8 @@ header>input{
     background-color: rgba(200, 200, 200, 0.1);
     border-radius: 10px;
     width: 70%;
-    font-size: 1.2rem;
-    outline: none;
-}
-header>input:focus{
-    border: 2px solid var(--btnBlue);
+    font-size: 1rem;
+    outline-color: var(--btnBlue);
 }
 header>button{
     border: none;
@@ -72,6 +69,7 @@ header>button:hover{
     background-color: var(--favBG);
     padding: 1rem 0;
     box-shadow: 0 0 2px 1px rgba(84, 179, 216, 0.5);
+    height: 170px;
 }
 .fav-container>h5{
     text-align: center;

@@ -1,5 +1,8 @@
 const meals_container = document.querySelector('.meals-container');
 const fav_group=document.querySelector('.fav-group');
+
+const search_input=document.querySelector('#search-input');
+const btn_search=document.querySelector('#btn-search');
 fetchFavMeals();
 getRandomMeal();
 
@@ -30,14 +33,15 @@ async function getMealsBySearch(term) {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=' + term);
     
     const respData= await response.json();
-    const meal = respData.meals[0];
+    const meal = respData.meals;
     return meal;
 }
 
+//meal divide
 function addMeal(mealData, isRandom = false) {
     const meal_item = document.createElement('div');
     meal_item.classList.add('meal-item');
-    meal_item.setAttribute('random','true');
+    meal_item.setAttribute('random',isRandom);
 
     meal_item.innerHTML = `
         <div class="meal-header">
@@ -53,9 +57,8 @@ function addMeal(mealData, isRandom = false) {
                 <button class="btn-base" id="btn-fav">
                     <i class="fas fa-heart"></i>
                 </button>
-                <button class="btn-base" id="btn-random">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
+                ${isRandom?'<button class="btn-base" id="btn-random"><i class="fas fa-sync-alt"></i></button>':''}
+                
             </div>
         </div>
     `;
@@ -72,16 +75,19 @@ function addMeal(mealData, isRandom = false) {
         }
         fetchFavMeals();
     });
-
-    const btn_random=meal_item.querySelector('#btn-random');
-    btn_random.addEventListener('click',function(){
-        getRandomMeal();
-    });
+    if(isRandom){
+        const btn_random=meal_item.querySelector('#btn-random');
+        btn_random.addEventListener('click',function(){
+            getRandomMeal();
+        });
+    }
+    
 
     meals_container.appendChild(meal_item);
 
 }
 
+//favorite divide
 function addMealToLS(mealid){
     const mealIds=getMealsFromLS();
     localStorage.setItem('mealIds',JSON.stringify([...mealIds,mealid]));
@@ -95,8 +101,6 @@ function getMealsFromLS(){
     const mealIds=JSON.parse(localStorage.getItem('mealIds'));
     return mealIds===null ?[]:mealIds;
 }
-
-//favorite
 async function fetchFavMeals(){
     //clear fav-group
     fav_group.innerHTML='';
@@ -136,3 +140,19 @@ function addMealToFav(mealData) {
 
     fav_group.appendChild(fav_item);
 }
+
+//search divide
+btn_search.addEventListener('click',async function(){
+    //clean meals
+    meals_container.innerHTML='';
+    const term=search_input.value;
+    const meals=await getMealsBySearch(term);
+    console.log(meals);
+    if(meals){
+        meals.forEach(function(item){
+            addMeal(item);
+        });
+    }
+    
+    
+});

@@ -3,6 +3,10 @@ const fav_group=document.querySelector('.fav-group');
 
 const search_input=document.querySelector('#search-input');
 const btn_search=document.querySelector('#btn-search');
+
+const meal_info_container=document.querySelector('.meal-info-container');
+const popup_close=document.querySelector('#popup-close');
+const meal_info=document.querySelector('.meal-info');
 fetchFavMeals();
 getRandomMeal();
 
@@ -62,7 +66,6 @@ function addMeal(mealData, isRandom = false) {
             </div>
         </div>
     `;
-
     const btn_fav=meal_item.querySelector('#btn-fav');
     btn_fav.addEventListener('click',function(){
         if(btn_fav.classList.contains('active')){
@@ -81,7 +84,11 @@ function addMeal(mealData, isRandom = false) {
             getRandomMeal();
         });
     }
-    
+    //add show info
+    const img=meal_item.querySelector('.meal-header img');
+    img.addEventListener('click',function(){
+        showMealInfo(mealData);
+    });
 
     meals_container.appendChild(meal_item);
 
@@ -138,6 +145,11 @@ function addMealToFav(mealData) {
         fetchFavMeals();
     });
 
+    //add show info
+    const img=fav_item.querySelector('.fav-item img');
+    img.addEventListener('click',function(){
+        showMealInfo(mealData);
+    });
     fav_group.appendChild(fav_item);
 }
 
@@ -153,6 +165,46 @@ btn_search.addEventListener('click',async function(){
             addMeal(item);
         });
     }
-    
-    
 });
+
+//meal-info
+popup_close.addEventListener('click',function(e){
+    console.log(meal_info_container);
+    meal_info_container.classList.add('hidden');
+});
+
+function showMealInfo(mealData){
+    //show info
+    meal_info_container.classList.remove('hidden');
+    //get ingrginets and measure
+    let ingredients=[];
+    for(let i=1;i<=20;i++){
+        if(mealData['strIngredient'+i]){
+            ingredients.push(
+                `${mealData['strIngredient'+i]} - ${
+                    mealData['strMeasure'+i]
+                }`
+            );
+        }
+        else{
+            break;
+        }
+    }
+    meal_info.innerHTML=`
+        <h1>${mealData.strMeal}</h1>
+        <img src=${mealData.strMealThumb} alt=${mealData.strMeal}>
+        <p>
+            ${mealData.strInstructions}
+        </p>
+        <h3>Ingredients:</h3>
+        <ul>
+            ${ingredients.map(item=>
+                `<li>${item}</li>`
+            ).join('')}
+        </ul>
+    `;
+    // const i2=ingredients.map(function(item){
+    //     return `<li>${item}</li>`;
+    // }).join('');
+    // console.log(i2);
+}

@@ -11,7 +11,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    list-style: none;
 }
 
 body{
@@ -20,13 +19,19 @@ body{
     background: radial-gradient(circle, rgba(216,235,235,1) 10%, rgba(250,250,250,1) 90%);
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 img{
     max-width: 100%;
 }
+
+.mobile-container{
+    width: 400px;
+    background-color: #fff;
+    box-shadow: 0 0 1rem rgba(0,0,0,.2);
+}
+
 header{
     padding: 1.5rem;
     width: 100%;
@@ -54,15 +59,7 @@ header>button{
 header>button:hover{
     color:var(--btnHover);
 }
-.mobile-container{
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    box-shadow: 0 0 1rem rgba(0,0,0,.2);
-}
+
 
 .fav-container{
     width: 100%;
@@ -70,6 +67,7 @@ header>button:hover{
     padding: 1rem 0;
     box-shadow: 0 0 2px 1px rgba(84, 179, 216, 0.5);
     height: 170px;
+    overflow: hidden;
 }
 .fav-container>h5{
     text-align: center;
@@ -77,6 +75,7 @@ header>button:hover{
     padding-bottom: .5rem;
 }
 .fav-group{
+    list-style: none;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -106,6 +105,7 @@ header>button:hover{
     width: 75px;
     height: 75px;
     object-fit: cover;
+    cursor: pointer;
 }
 .fav-item span{
     width: 75px;
@@ -149,6 +149,7 @@ header>button:hover{
     width: 100%;
     height: 230px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .meal-body{
@@ -180,3 +181,55 @@ header>button:hover{
     color:#000;
 }
 
+/*add meal-info*/
+.meal-info-container{
+    position: fixed;
+    background-color: rgba(0,0,0,.5);
+    top: 0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.meal-info-container.hidden{
+    opacity: 0;
+    pointer-events: none;
+}
+.meal-info-popup{
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+    position: relative;
+    overflow: auto;
+    max-width: 600px;
+    max-height: 100vh;
+}
+.popup-close{
+    background-color: transparent;
+    color: #000;
+    font-size: 1rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+
+}
+.meal-info>h1{
+    text-align:center;
+    padding-bottom: 1rem;
+}
+.meal-info ul{
+    padding: .5rem 1.5rem;
+}
+.meal-info p{
+    padding: .7rem 0;
+    line-height: 1.5rem;
+}
+.meal-info h3{
+    padding: .7rem 0;
+}

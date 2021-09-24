@@ -68,6 +68,7 @@ header>button:hover{
     box-shadow: 0 0 2px 1px rgba(84, 179, 216, 0.5);
     height: 170px;
     overflow: hidden;
+    position: relative;
 }
 .fav-container>h5{
     text-align: center;
@@ -75,11 +76,21 @@ header>button:hover{
     padding-bottom: .5rem;
 }
 .fav-group{
+    width: 500%;
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
+    position: relative;
+    padding-left: 10px;
+    left: 0px;
+    -moz-transition: all 1s; 
+    -webkit-transition: all 1s;  
+    -ms-transition: all 1s;  
+    -o-transition: all 1s;  
+    transition: all 1s;
 }
+
 .fav-item{
     width: 95px;
     display:flex;
@@ -88,14 +99,34 @@ header>button:hover{
     padding: 0 .5rem;
     position: relative;
 }
-.fav-item #btn-remove{
+.fav-group.animate-left{
+    transition-property: left;
+    transition-duration: 500ms;
+    left:-95px
+}
+.fav-group.animate-right{
+    transition-property: left;
+    transition-duration: 500ms;
+    left:-95px
+}
+@keyframes moveLeft{
+    0%{margin-left: 0;}
+    50%{margin-left: -50px;}
+    100%{margin-left: -95px;}
+}
+@keyframes moveRight{
+    100%{margin-left: 0;}
+}
+.fav-item .btn-remove{
     position: absolute;
     top:0;
     right:10px;
     color: #000;
     opacity: 0;
+    background-color: transparent;
+    border: none;
 }
-.fav-item:hover #btn-remove{
+.fav-container:hover  .btn-remove{
     opacity: 1;
 }
 .fav-item img{
@@ -115,6 +146,22 @@ header>button:hover{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.btn-pre{
+    position: absolute;
+    left: 0;
+    top: 45%;
+    z-index: 1;
+    font-size: 1rem;
+}
+
+.btn-nex{
+    position: absolute;
+    right: 0;
+    top: 45%;
+    z-index: 1;
+    font-size: 1rem;
 }
 
 .meals-container{
@@ -192,6 +239,7 @@ header>button:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .meal-info-container.hidden{
@@ -212,12 +260,10 @@ header>button:hover{
     color: #000;
     font-size: 1rem;
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: .7rem;
+    right: .7rem;
     border: none;
     cursor: pointer;
-    z-index: 1;
-
 }
 .meal-info>h1{
     text-align:center;

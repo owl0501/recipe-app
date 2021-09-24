@@ -7,6 +7,8 @@ const btn_search=document.querySelector('#btn-search');
 const meal_info_container=document.querySelector('.meal-info-container');
 const popup_close=document.querySelector('#popup-close');
 const meal_info=document.querySelector('.meal-info');
+const btn_pre=document.querySelector('.btn-pre');
+const btn_nex=document.querySelector('.btn-nex');
 fetchFavMeals();
 getRandomMeal();
 
@@ -95,6 +97,26 @@ function addMeal(mealData, isRandom = false) {
 }
 
 //favorite divide
+let count=0;
+btn_pre.addEventListener('click',function(ev){
+    const fav_list=document.querySelectorAll('.fav-item');
+    if(count<(fav_list.length-4)){
+        console.log(count++);
+        
+        let left=parseInt(window.getComputedStyle(fav_group,null).getPropertyValue('left'));
+        fav_group.style.left=left-95+'px';
+    }
+});
+btn_nex.addEventListener('click',function(){
+    const fav_list=document.querySelectorAll('.fav-item');
+    if(count>0){
+        count--;
+        let left=parseInt(window.getComputedStyle(fav_group,null).getPropertyValue('left'));
+
+        fav_group.style.left=left+95+'px';
+    }
+});
+
 function addMealToLS(mealid){
     const mealIds=getMealsFromLS();
     localStorage.setItem('mealIds',JSON.stringify([...mealIds,mealid]));
@@ -133,12 +155,12 @@ function addMealToFav(mealData) {
             alt=${mealData.strMeal}
         />
         <span>${mealData.strMeal}</span>
-        <button class="btn-base" id="btn-remove">
+        <button class="btn-remove">
             <i class="fas fa-times-circle"></i>
         </button>
     `;
 
-    const btn_remove=fav_item.querySelector('#btn-remove');
+    const btn_remove=fav_item.querySelector('.btn-remove');
     btn_remove.addEventListener('click',function(){
         // console.log(mealData.idMeal);
         removeMealFromLS(mealData.idMeal);

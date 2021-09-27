@@ -1,44 +1,46 @@
 const meals_container = document.querySelector('.meals-container');
-const fav_group=document.querySelector('.fav-group');
+const fav_group = document.querySelector('.fav-group');
 
-const search_input=document.querySelector('#search-input');
-const btn_search=document.querySelector('#btn-search');
+const search_input = document.querySelector('#search-input');
+const btn_search = document.querySelector('#btn-search');
 
-const meal_info_container=document.querySelector('.meal-info-container');
-const popup_close=document.querySelector('#popup-close');
-const meal_info=document.querySelector('.meal-info');
-const btn_pre=document.querySelector('.btn-pre');
-const btn_nex=document.querySelector('.btn-nex');
+const meal_info_container = document.querySelector('.meal-info-container');
+const popup_close = document.querySelector('#popup-close');
+const meal_info = document.querySelector('.meal-info');
+const btn_pre = document.querySelector('.btn-pre');
+const btn_nex = document.querySelector('.btn-nex');
 fetchFavMeals();
 getRandomMeal();
 
 
+
 async function getRandomMeal() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
-    
-    const respData= await response.json();
+
+    const respData = await response.json();
     const randomMeal = respData.meals[0];
     console.log(randomMeal);
 
-    const recommededMeal=document.querySelector('.meal-item[random=true]');
+    const recommededMeal = document.querySelector('.meal-item[random=true]');
     // console.log(recommededMeal);
-    if(recommededMeal!==null){
+    if (recommededMeal !== null) {
         meals_container.removeChild(recommededMeal);
     }
     addMeal(randomMeal, true);
 }
+
 async function getMealById(id) {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i='+id);
-    
-    const respData= await response.json();
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + id);
+
+    const respData = await response.json();
     const meal = respData.meals[0];
     return meal;
 }
 
 async function getMealsBySearch(term) {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=' + term);
-    
-    const respData= await response.json();
+
+    const respData = await response.json();
     const meal = respData.meals;
     return meal;
 }
@@ -47,11 +49,11 @@ async function getMealsBySearch(term) {
 function addMeal(mealData, isRandom = false) {
     const meal_item = document.createElement('div');
     meal_item.classList.add('meal-item');
-    meal_item.setAttribute('random',isRandom);
+    meal_item.setAttribute('random', isRandom);
 
     meal_item.innerHTML = `
         <div class="meal-header">
-            ${isRandom?'<span class="tag">Recommended today</span>':''}
+            ${isRandom ? '<span class="tag">Recommended today</span>' : ''}
             <img 
                 src=${mealData.strMealThumb}
                 alt=${mealData.strMeal}
@@ -63,32 +65,34 @@ function addMeal(mealData, isRandom = false) {
                 <button class="btn-base" id="btn-fav">
                     <i class="fas fa-heart"></i>
                 </button>
-                ${isRandom?'<button class="btn-base" id="btn-random"><i class="fas fa-sync-alt"></i></button>':''}
+                ${isRandom ? '<button class="btn-base" id="btn-random"><i class="fas fa-sync-alt"></i></button>' : ''}
                 
             </div>
         </div>
     `;
-    const btn_fav=meal_item.querySelector('#btn-fav');
-    btn_fav.addEventListener('click',function(){
-        if(btn_fav.classList.contains('active')){
+    //add favorite
+    const btn_fav = meal_item.querySelector('#btn-fav');
+    btn_fav.addEventListener('click', function () {
+        if (btn_fav.classList.contains('active')) {
             removeMealFromLS(mealData.idMeal);
             btn_fav.classList.remove('active');
         }
-        else{
+        else {
             addMealToLS(mealData.idMeal);
             btn_fav.classList.add('active');
         }
         fetchFavMeals();
     });
-    if(isRandom){
-        const btn_random=meal_item.querySelector('#btn-random');
-        btn_random.addEventListener('click',function(){
+    //add re-random
+    if (isRandom) {
+        const btn_random = meal_item.querySelector('#btn-random');
+        btn_random.addEventListener('click', function () {
             getRandomMeal();
         });
     }
     //add show info
-    const img=meal_item.querySelector('.meal-header img');
-    img.addEventListener('click',function(){
+    const img = meal_item.querySelector('.meal-header img');
+    img.addEventListener('click', function () {
         showMealInfo(mealData);
     });
 
@@ -97,52 +101,59 @@ function addMeal(mealData, isRandom = false) {
 }
 
 //favorite divide
-let count=0;
-btn_pre.addEventListener('click',function(ev){
-    const fav_list=document.querySelectorAll('.fav-item');
-    if(count<(fav_list.length-4)){
-        console.log(count++);
-        
-        let left=parseInt(window.getComputedStyle(fav_group,null).getPropertyValue('left'));
-        fav_group.style.left=left-95+'px';
+//hand
+
+//button
+let count = 0;
+btn_nex.addEventListener('click', function (ev) {
+    const fav_list = document.querySelectorAll('.fav-item');
+    console.log('len',fav_list.length);
+    
+    if (count < (fav_list.length - 3)) {
+        count++;
+        let left = parseInt(window.getComputedStyle(fav_group, null).getPropertyValue('left'));
+        fav_group.style.left = left - 105 + 'px';
     }
+    console.log(count);
 });
-btn_nex.addEventListener('click',function(){
-    const fav_list=document.querySelectorAll('.fav-item');
-    if(count>0){
+btn_pre.addEventListener('click', function () {
+    const fav_list = document.querySelectorAll('.fav-item');
+    console.log('len',fav_list.length);
+    if (count > 0) {
         count--;
-        let left=parseInt(window.getComputedStyle(fav_group,null).getPropertyValue('left'));
+        let left = parseInt(window.getComputedStyle(fav_group, null).getPropertyValue('left'));
 
-        fav_group.style.left=left+95+'px';
+        fav_group.style.left = left + 105 + 'px';
     }
+    console.log(count);
 });
 
-function addMealToLS(mealid){
-    const mealIds=getMealsFromLS();
-    localStorage.setItem('mealIds',JSON.stringify([...mealIds,mealid]));
+function addMealToLS(mealid) {
+    const mealIds = getMealsFromLS();
+    localStorage.setItem('mealIds', JSON.stringify([...mealIds, mealid]));
 }
-function removeMealFromLS(mealId){
-    const mealIds=getMealsFromLS();
-    localStorage.setItem('mealIds',JSON.stringify(mealIds.filter(id=>id!==mealId)));
+function removeMealFromLS(mealId) {
+    const mealIds = getMealsFromLS();
+    localStorage.setItem('mealIds', JSON.stringify(mealIds.filter(id => id !== mealId)));
 }
 
-function getMealsFromLS(){
-    const mealIds=JSON.parse(localStorage.getItem('mealIds'));
-    return mealIds===null ?[]:mealIds;
+function getMealsFromLS() {
+    const mealIds = JSON.parse(localStorage.getItem('mealIds'));
+    return mealIds === null ? [] : mealIds;
 }
-async function fetchFavMeals(){
+async function fetchFavMeals() {
     //clear fav-group
-    fav_group.innerHTML='';
+    fav_group.innerHTML = '';
     const mealIds = getMealsFromLS();
 
-    for(let i=0;i<mealIds.length;i++){
-        const mealId=mealIds[i];
-        const meal=await getMealById(mealId);
+    for (let i = 0; i < mealIds.length; i++) {
+        const mealId = mealIds[i];
+        const meal = await getMealById(mealId);
         // console.log(meal);
         addMealToFav(meal);
     }
-    
-    
+
+
 }
 
 function addMealToFav(mealData) {
@@ -160,59 +171,58 @@ function addMealToFav(mealData) {
         </button>
     `;
 
-    const btn_remove=fav_item.querySelector('.btn-remove');
-    btn_remove.addEventListener('click',function(){
+    const btn_remove = fav_item.querySelector('.btn-remove');
+    btn_remove.addEventListener('click', function () {
         // console.log(mealData.idMeal);
         removeMealFromLS(mealData.idMeal);
         fetchFavMeals();
     });
 
     //add show info
-    const img=fav_item.querySelector('.fav-item img');
-    img.addEventListener('click',function(){
+    const img = fav_item.querySelector('.fav-item img');
+    img.addEventListener('click', function () {
         showMealInfo(mealData);
     });
     fav_group.appendChild(fav_item);
 }
 
 //search divide
-btn_search.addEventListener('click',async function(){
+btn_search.addEventListener('click', async function () {
     //clean meals
-    meals_container.innerHTML='';
-    const term=search_input.value;
-    const meals=await getMealsBySearch(term);
+    meals_container.innerHTML = '';
+    const term = search_input.value;
+    const meals = await getMealsBySearch(term);
     console.log(meals);
-    if(meals){
-        meals.forEach(function(item){
+    if (meals) {
+        meals.forEach(function (item) {
             addMeal(item);
         });
     }
 });
 
 //meal-info
-popup_close.addEventListener('click',function(e){
+popup_close.addEventListener('click', function (e) {
     console.log(meal_info_container);
     meal_info_container.classList.add('hidden');
 });
 
-function showMealInfo(mealData){
+function showMealInfo(mealData) {
     //show info
     meal_info_container.classList.remove('hidden');
     //get ingrginets and measure
-    let ingredients=[];
-    for(let i=1;i<=20;i++){
-        if(mealData['strIngredient'+i]){
+    let ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+        if (mealData['strIngredient' + i]) {
             ingredients.push(
-                `${mealData['strIngredient'+i]} - ${
-                    mealData['strMeasure'+i]
+                `${mealData['strIngredient' + i]} - ${mealData['strMeasure' + i]
                 }`
             );
         }
-        else{
+        else {
             break;
         }
     }
-    meal_info.innerHTML=`
+    meal_info.innerHTML = `
         <h1>${mealData.strMeal}</h1>
         <img src=${mealData.strMealThumb} alt=${mealData.strMeal}>
         <p>
@@ -220,9 +230,9 @@ function showMealInfo(mealData){
         </p>
         <h3>Ingredients:</h3>
         <ul>
-            ${ingredients.map(item=>
-                `<li>${item}</li>`
-            ).join('')}
+            ${ingredients.map(item =>
+        `<li>${item}</li>`
+    ).join('')}
         </ul>
     `;
     // const i2=ingredients.map(function(item){

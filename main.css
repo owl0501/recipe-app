@@ -3,7 +3,7 @@
 :root {
     --favTitle: #3dd;
     --favBG: rgba(152, 245, 245, 0.2);
-    --btnBlue: rgba(28, 129, 119, .9);
+    --darkGreen: rgba(28, 129, 119, .9);
     --btnHover: rgba(101, 219, 209, 0.993);
 }
 
@@ -27,13 +27,14 @@ img{
 }
 
 .mobile-container{
-    width: 400px;
+    width: 100%;
+    min-height: 100vh;
     background-color: #fff;
-    box-shadow: 0 0 1rem rgba(0,0,0,.2);
+    position: relative;
 }
 
 header{
-    padding: 1.5rem;
+    padding: 1rem;
     width: 100%;
     display: flex;
     align-items: center;
@@ -46,34 +47,41 @@ header>input{
     border-radius: 10px;
     width: 70%;
     font-size: 1rem;
-    outline-color: var(--btnBlue);
+    outline-color: var(--darkGreen);
 }
 header>button{
     border: none;
     font-size: 1.3rem;
     background-color: transparent;
-    color: var(--btnBlue);
+    color: var(--darkGreen);
     cursor: pointer;
     padding: 1px 5px;
 }
-header>button:hover{
+/* header>button:hover{
     color:var(--btnHover);
-}
+} */
 
 
 .fav-container{
     width: 100%;
     background-color: var(--favBG);
-    padding: 1rem 0;
     box-shadow: 0 0 2px 1px rgba(84, 179, 216, 0.5);
     height: 170px;
     overflow: hidden;
     position: relative;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.fav-container>h5{
+.fav-container>h4{
     text-align: center;
     color: var(--favTitle);
     padding-bottom: .5rem;
+}
+.fav-show-block{
+    width: calc(105px*3);
+    overflow: hidden;
 }
 .fav-group{
     width: 500%;
@@ -82,7 +90,7 @@ header>button:hover{
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
-    padding-left: 10px;
+    /* padding-left: 10px; */
     left: 0px;
     -moz-transition: all 1s; 
     -webkit-transition: all 1s;  
@@ -92,35 +100,17 @@ header>button:hover{
 }
 
 .fav-item{
-    width: 95px;
+    width: 75px;
     display:flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 .5rem;
+    margin: 0 15px;
     position: relative;
-}
-.fav-group.animate-left{
-    transition-property: left;
-    transition-duration: 500ms;
-    left:-95px
-}
-.fav-group.animate-right{
-    transition-property: left;
-    transition-duration: 500ms;
-    left:-95px
-}
-@keyframes moveLeft{
-    0%{margin-left: 0;}
-    50%{margin-left: -50px;}
-    100%{margin-left: -95px;}
-}
-@keyframes moveRight{
-    100%{margin-left: 0;}
 }
 .fav-item .btn-remove{
     position: absolute;
     top:0;
-    right:10px;
+    right:0;
     color: #000;
     opacity: 0;
     background-color: transparent;
@@ -141,7 +131,7 @@ header>button:hover{
 .fav-item span{
     width: 75px;
     text-align: center;
-    font-size: .5rem;
+    font-size: .8rem;
     padding: .25rem 0;
     white-space: nowrap;
     overflow: hidden;
@@ -153,7 +143,7 @@ header>button:hover{
     left: 0;
     top: 45%;
     z-index: 1;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .btn-nex{
@@ -161,7 +151,7 @@ header>button:hover{
     right: 0;
     top: 45%;
     z-index: 1;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .meals-container{
@@ -206,20 +196,15 @@ header>button:hover{
 }
 
 .meal-body h4{
-    width: 220px;
+    width: 75%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: .8rem;
+    font-size: 1rem;
 }
-
-.btn-base{
-    border: none;
-    background-color: transparent;
-    color: #aaa;
-    cursor: pointer;
+#btn-fav,#btn-random{
+    font-size: 1rem;
 }
-
 .meal-body #btn-fav.active{
     color: #f33;
 }
@@ -228,6 +213,12 @@ header>button:hover{
     color:#000;
 }
 
+.btn-base{
+    border: none;
+    background-color: transparent;
+    color: #aaa;
+    cursor: pointer;
+}
 /*add meal-info*/
 .meal-info-container{
     position: fixed;
@@ -278,4 +269,21 @@ header>button:hover{
 }
 .meal-info h3{
     padding: .7rem 0;
+}
+
+.footer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    background-color: var(--darkGreen);
+}
+
+@media  screen and (min-width:400px) {
+    .mobile-container{
+        width: 400px;
+        min-height: 700px;
+        box-shadow: 0 0 1rem rgba(0,0,0,.2);
+    }
+    
 }

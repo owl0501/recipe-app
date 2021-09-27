@@ -57,9 +57,9 @@ header>button{
     cursor: pointer;
     padding: 1px 5px;
 }
-/* header>button:hover{
+header>button:hover{
     color:var(--btnHover);
-} */
+}
 
 
 .fav-container{
@@ -164,7 +164,6 @@ header>button{
     border-radius: 7px;
     overflow: hidden;
     margin: 1.5rem;
-    /* border: 1px solid #ccc; */
     box-shadow: 0 2px 5px 2px #aaa;
 }
 .meal-header{
@@ -249,10 +248,10 @@ header>button{
 .popup-close{
     background-color: transparent;
     color: #000;
-    font-size: 1rem;
+    font-size: 1.5rem;
     position: absolute;
     top: .7rem;
-    right: .7rem;
+    right: 1rem;
     border: none;
     cursor: pointer;
 }
